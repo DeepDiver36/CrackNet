@@ -33,7 +33,7 @@ def run_arp():
     interface = request.form['iface']
 
     arp_process = subprocess.Popen(
-        ['./NetworksEnv/Scripts/python.exe', 'ARP_spoofing.py', ip1, ip2, interface],
+        ['python', 'ARP_spoofing.py', ip1, ip2, interface],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         encoding='utf-8',
