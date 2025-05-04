@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ARP Spoofing</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            font-family: Arial, sans-serif;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        form {
+            background: #1e3c52;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #00e5ff;
+            width: 300px;
+        }
+        input, button {
+            width: 100%;
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            background-color: #0288d1;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body style="font-family: sans-serif; text-align: center; margin-top: 50px;">
+    <h2>Enter Details for ARP Spoofing</h2>
+    <!-- <form action="/run_arp" method="post" target="_blank"> -->
+    <form action="/run_arp" method="post">
+        <input type="text" name="ip1" placeholder="Victim 1 IP" required><br><br>
+        <input type="text" name="ip2" placeholder="Victim 2 IP" required><br><br>
+        <input type="text" name="iface" placeholder="Network Interface (e.g. wlan0)" required><br><br>
+        <button type="submit">Start ARP Spoofing</button>
+    </form>
+    <br><br>
+    <form action="/stop_arp" method="get" target="_blank">
+        <button type="submit" style="background-color: red; color: white;">Stop ARP Spoofing</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attack Interface</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #c8f0f9;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .circular-image {
+            width: 200px; /* Reduced size */
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 5px #00bcd4);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0.5rem 0;
+            color: #00e5ff;
+            text-shadow: 0 0 6px #00e5ff;
+        }
+
+        p.subtitle {
+            margin: 0.5rem 0 2rem;
+            font-size: 1.1rem;
+            color: #a2e8ff;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 300px;
+        }
+
+        button {
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            background-color: #0288d1;
+            color: #ffffff;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(2, 136, 209, 0.4);
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #03a9f4;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container">
+        <img src="{{ url_for('static', filename='logo2.jpg') }}" alt="IIT logo" class="circular-image">
+    </div>
+    <h1>Welcome to IIT Goa Pentesting Machine</h1>
+    <p class="subtitle">Attack Control Panel</p>
+    <form action="/start" method="post">
+        <button name="attack" value="arp">Start ARP Spoofing</button>
+        <button name="attack" value="dos">Start DoS Attack</button>
+    </form>
+</body>
+</html>

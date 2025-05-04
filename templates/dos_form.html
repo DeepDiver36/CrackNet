@@ -1,0 +1,41 @@
+<!-- templates/dos_form.html -->
+<html>
+<head>
+    <title>Launch DoS Attack</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 40px;
+        }
+        input, label {
+            display: block;
+            margin: 10px auto;
+            width: 300px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        button {
+            background-color: crimson;
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>⚠️ Start DoS Attack</h2>
+    <form action="/run_dos" method="post">
+        <label>IP Address: <input type="text" name="ip" required></label>
+        <label>Port Number: <input type="text" name="port" required></label>
+        <label>Rate Limit (seconds): <input type="text" name="rate_limit" required></label>
+        <label>Data Size (bytes): <input type="text" name="data_size" required></label>
+        <label>Threads: <input type="text" name="threads" required></label>
+        <button type="submit">Launch Attack</button>
+    </form>
+</body>
+</html>

