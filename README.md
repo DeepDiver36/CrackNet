@@ -17,6 +17,7 @@ cd CrackNet
 1.	Run the python script : python app.py
 2.	Open your browser and go to: http://localhost:5000
 3.	Use Interface to start any of the two attacks:
+
 -For DoS Inputs:
 1.	IP Address of the target server (for our demonstration purpose we used the Apache Web server running on Metasploitable2 Virtual Machine)
 2.	Port Number (for our demonstration port number 80)
@@ -25,6 +26,8 @@ cd CrackNet
 5.	Threads (1000 suggested)
 6.	Click the launch attack button
 7.	To stop click the stop button
+
+   
 -For ARP Spoofing Inputs:
 1.	Victim 1 IP address
 2.	Victim 2 IP address (For our demonstration these two were communicating via netcat)
