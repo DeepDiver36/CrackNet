@@ -1,6 +1,6 @@
 import os
 import time
-import socket
+import socket  #for communication over sockets
 import threading
 import logging
 import sys
