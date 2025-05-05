@@ -7,7 +7,7 @@ A simulation tool to demonstrate Denial of Service (DoS) and ARP Spoofing
 •	Simple Interface with start/stop control
 ## Installation
 1.	Clone the repository
-2.	``` git clone https://github.com/DeepDiver36/CrackNet.git
+2.	git clone https://github.com/DeepDiver36/CrackNet.git
 cd CrackNet
 3.	Install Dependencies pip install -r requirements.txt
 ## Network Requirements
