@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ method }} Decryption Result</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1c1c3c, #2b5876);
+      color: #e0f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+      backdrop-filter: blur(10px);
+      width: 100%;
+      max-width: 700px;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #00e5ff;
+      text-shadow: 0 0 6px #00e5ff;
+    }
+
+    pre {
+      background-color: #102c45;
+      color: #ffffff;
+      padding: 1rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 1.5rem;
+      text-decoration: none;
+      color: #00e5ff;
+      font-weight: bold;
+      font-size: 1rem;
+      border: 2px solid #00e5ff;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    a:hover {
+      background-color: #00e5ff;
+      color: #1c1c3c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>{{ method }} Decryption Result</h2>
+    <pre>{{ result }}</pre>
+    <a href="/decode">← Back</a>
+  </div>
+</body>
+</html>

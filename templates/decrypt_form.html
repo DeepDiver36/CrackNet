@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ method }} Decryption</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1c1c3c, #2b5876);
+      color: #e0f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+      backdrop-filter: blur(10px);
+      width: 100%;
+      max-width: 600px;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #00e5ff;
+      text-shadow: 0 0 6px #00e5ff;
+    }
+
+    label {
+      display: block;
+      margin: 1rem 0 0.3rem;
+      font-weight: bold;
+      color: #a2e8ff;
+    }
+
+    textarea,
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      background-color: #102c45;
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
+    }
+
+    textarea:focus,
+    input:focus {
+      outline: none;
+      box-shadow: 0 0 10px #00e5ff;
+    }
+
+    small {
+      color: #ccc;
+      display: block;
+      margin-top: 0.3rem;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      background-color: #0288d1;
+      color: #ffffff;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: #03a9f4;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>{{ method }} Decryption</h2>
+    <form method="POST" action="/decrypt_result">
+      <input type="hidden" name="method" value="{{ method }}">
+
+      <label>Ciphertext:</label>
+      <textarea name="ciphertext" rows="4" required></textarea>
+
+      {% if method == "Caesar" %}
+        <label>Shift:</label>
+        <input type="number" name="shift" required>
+      {% elif method == "XOR" %}
+        <label>Key:</label>
+        <input type="text" name="key" required>
+      {% elif method == "RSA" %}
+        <label>Private Key (d):</label>
+        <input type="text" name="d">
+        <label>Modulus (n):</label>
+        <input type="text" name="n" required>
+        <label>Public Exponent (e):</label>
+        <input type="text" name="e">
+        <small>Leave d empty to use factorization</small>
+      {% endif %}
+
+      <!-- Base64 requires no additional input -->
+      
+      <button type="submit">Decrypt</button>
+    </form>
+  </div>
+</body>
+</html>

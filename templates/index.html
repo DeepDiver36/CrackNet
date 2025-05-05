@@ -18,7 +18,7 @@
         }
 
         .circular-image {
-            width: 200px; /* Reduced size */
+            width: 200px;
             height: 200px;
             border-radius: 50%;
             object-fit: cover;
@@ -39,15 +39,20 @@
             color: #a2e8ff;
         }
 
-        form {
+        .button-container {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             gap: 1rem;
-            width: 300px;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        form {
+            margin: 0;
         }
 
         button {
-            padding: 1rem;
+            padding: 1rem 2rem;
             font-size: 1rem;
             font-weight: bold;
             border: none;
@@ -71,9 +76,17 @@
     </div>
     <h1>Welcome to IIT Goa Pentesting Machine</h1>
     <p class="subtitle">Attack Control Panel</p>
-    <form action="/start" method="post">
-        <button name="attack" value="arp">Start ARP Spoofing</button>
-        <button name="attack" value="dos">Start DoS Attack</button>
-    </form>
+    
+    <div class="button-container">
+        <form action="/start" method="post">
+            <button name="attack" value="arp">Start ARP Spoofing</button>
+        </form>
+        <form action="/start" method="post">
+            <button name="attack" value="dos">Start DoS Attack</button>
+        </form>
+        <form action="/decode" method="get">
+            <button type="submit">Decode Cipher</button>
+        </form>
+    </div>
 </body>
 </html>

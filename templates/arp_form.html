@@ -20,6 +20,7 @@
             border-radius: 10px;
             box-shadow: 0 0 10px #00e5ff;
             width: 300px;
+            margin-bottom: 20px;
         }
         input, button {
             width: 100%;
@@ -34,20 +35,38 @@
             font-weight: bold;
             cursor: pointer;
         }
+        .stop-btn {
+            background-color: red;
+        }
+        .back-home {
+            margin-top: 20px;
+            background-color: #00c853;
+            text-decoration: none;
+            padding: 12px 25px;
+            color: white;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 0 10px #00c853;
+        }
+        .back-home:hover {
+            background-color: #00e676;
+        }
     </style>
 </head>
 <body style="font-family: sans-serif; text-align: center; margin-top: 50px;">
     <h2>Enter Details for ARP Spoofing</h2>
-    <!-- <form action="/run_arp" method="post" target="_blank"> -->
-    <form action="/run_arp" method="post">
+    <form action="/run_arp" method="post" target="_blank">
         <input type="text" name="ip1" placeholder="Victim 1 IP" required><br><br>
         <input type="text" name="ip2" placeholder="Victim 2 IP" required><br><br>
         <input type="text" name="iface" placeholder="Network Interface (e.g. wlan0)" required><br><br>
         <button type="submit">Start ARP Spoofing</button>
     </form>
-    <br><br>
-    <form action="/stop_arp" method="get" target="_blank">
-        <button type="submit" style="background-color: red; color: white;">Stop ARP Spoofing</button>
+
+    <form action="/stop_arp" method="get">
+        <button type="submit" class="stop-btn">Stop ARP Spoofing</button>
     </form>
+
+    <!-- Back to Home Button -->
+    <a class="back-home" href="/">⬅ Back to Home</a>
 </body>
 </html>
