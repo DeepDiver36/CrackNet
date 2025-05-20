@@ -1,5 +1,5 @@
 # CRACKNET
-A simulation tool to demonstrate Denial of Service (DoS) and ARP Spoofing
+A simulation tool to demonstrate Denial of Service (DoS) and ARP Spoofing along with a few interesting decryption techniques.
 ## Features
 1. Localhost web app to trigger attacks
 2.	DoS attack on a vulnerable server
