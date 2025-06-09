@@ -30,11 +30,13 @@ def arp_form():
 def run_arp():
     global arp_process
     ip1 = request.form['ip1']
+    mac1 = request.form['MAC1']
     ip2 = request.form['ip2']
+    mac2 = request.form['MAC2']
     interface = request.form['iface']
 
     arp_process = subprocess.Popen(
-        ['python', 'ARP_spoofing.py', ip1, ip2, interface],
+        ['python', 'ARP_spoofing.py', ip1,mac1, ip2,mac2, interface],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         encoding='utf-8',
