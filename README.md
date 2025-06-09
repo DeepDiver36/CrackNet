@@ -18,7 +18,7 @@ A simulation tool to demonstrate Denial of Service (DoS) and ARP Spoofing along 
 cd CrackNet
 3.	Install Dependencies pip install -r requirements.txt
 ## Network Requirements
-•	ARP Spoofing: The attacker and the victim must be on the same local network.
+•	ARP Spoofing: The attacker and the victims must be on the same local network.
 •	DoS Attack: Can target devices on different networks, but this requires hosting a public server - for simplicity, it's recommended to keep the target on the same network.
 •	Running the App
 1.	Run the python script : python app.py
@@ -36,8 +36,8 @@ cd CrackNet
 
    
 -For ARP Spoofing Inputs:
-1.	Victim 1 IP address
-2.	Victim 2 IP address (For our demonstration these two were communicating via netcat)
+1.	Victim 1 IP address and MAC address
+2.	Victim 2 IP address and MAC address (For our demonstration these two were communicating via netcat)
 3.	Network Interface
 4.	Click the Start ARP Spoofing button , it will open a new tab.
 5.	To stop the attack click on Stop ARP Spoofing button.
